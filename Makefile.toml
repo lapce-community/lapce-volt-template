@@ -1,0 +1,54 @@
+[tasks.default]
+clear = true
+dependencies = [
+  "fmt",
+  "check",
+  "clippy",
+  "release",
+]
+
+[tasks.fmt]
+command = 'cargo'
+args = ['fmt']
+
+[tasks.release]
+dependencies = [
+  'build-release',
+  'copy-release',
+]
+
+[tasks.dev]
+dependencies = [
+  'build-dev',
+  'copy-dev',
+]
+
+[tasks.check]
+command = 'cargo'
+args = ['check']
+
+[tasks.clippy]
+command = 'cargo'
+args = ['clippy']
+
+[tasks.build-dev]
+command = 'cargo'
+args = ['build']
+
+[tasks.copy-dev]
+script_runner = "@shell"
+script = '''
+rm ./lapce*.wasm
+cp ./target/wasm32-wasi/debug/lapce*.wasm ./
+'''
+
+[tasks.build-release]
+command = 'cargo'
+args = ['build', '--release']
+
+[tasks.copy-release]
+script_runner = "@shell"
+script = '''
+rm ./lapce*.wasm
+cp ./target/wasm32-wasi/release/lapce*.wasm ./
+'''
