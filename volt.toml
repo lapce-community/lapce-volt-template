@@ -5,7 +5,7 @@ display-name = "<plugin-display-name>"
 description = "<plugin-description>"
 
 # for non-theme plugins
-# wasm = "<plugin-name>.wasm"
+# wasm = "bin/<plugin-name>.wasm"
 
 # for theme plugins
 # themes = ["theme-one.toml", "theme-two.toml", "theme-three.toml"]

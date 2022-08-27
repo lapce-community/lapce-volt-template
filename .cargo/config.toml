@@ -1,2 +1,9 @@
+[alias]
+m = "make"
+i = ["install", "--path", "."]
+
+[install]
+root = "."
+
 [build]
 target = "wasm32-wasi"
