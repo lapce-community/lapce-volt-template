@@ -44,7 +44,7 @@ fn initialize(params: InitializeParams) -> Result<()> {
     };
 
     // OS check
-    let _ = match VoltEnvironment::architecture().as_deref() {
+    let _ = match VoltEnvironment::operating_system().as_deref() {
         Ok("macos") => "macos",
         Ok("linux") => "linux",
         Ok("windows") => "windows",
