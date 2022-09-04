@@ -13,6 +13,8 @@ struct State {}
 
 register_plugin!(State);
 
+const LANGUAGE_ID: &str = "language_id";
+
 fn initialize(params: InitializeParams) -> Result<()> {
     // Check for user specified LSP server path
     // ```
@@ -26,7 +28,7 @@ fn initialize(params: InitializeParams) -> Result<()> {
                     if !server_path.is_empty() {
                         PLUGIN_RPC.start_lsp(
                             Url::parse(&format!("urn:{}", server_path))?,
-                            "[language_id]",
+                            LANGUAGE_ID,
                             params.initialization_options,
                         );
                         return Ok(());
@@ -69,7 +71,7 @@ fn initialize(params: InitializeParams) -> Result<()> {
 
     // Available language IDs
     // https://github.com/lapce/lapce/blob/HEAD/lapce-proxy/src/buffer.rs#L173
-    PLUGIN_RPC.start_lsp(exec_path, "[language_id]", params.initialization_options);
+    PLUGIN_RPC.start_lsp(exec_path, LANGUAGE_ID, params.initialization_options);
 
     Ok(())
 }
