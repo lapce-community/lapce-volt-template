@@ -3,9 +3,4 @@ version = "0.0.0"
 author = "<your name>"
 display-name = "<plugin-display-name>"
 description = "<plugin-description>"
-
-# for non-theme plugins
-# wasm = "bin/<plugin-name>.wasm"
-
-# for theme plugins
-# themes = ["theme-one.toml", "theme-two.toml", "theme-three.toml"]
+wasm = "bin/<plugin-name>.wasm"
