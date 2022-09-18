@@ -34,6 +34,9 @@ fn initialize(params: InitializeParams) -> Result<()> {
         if let Some(lsp) = options.get("lsp") {
             if let Some(args) = lsp.get("serverArgs") {
                 if let Some(args) = args.as_array() {
+                    if !args.is_empty() {
+                        server_args = vec![];
+                    }
                     for arg in args {
                         if let Some(arg) = arg.as_str() {
                             server_args.push(arg.to_string());
