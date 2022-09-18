@@ -1,7 +1,7 @@
 use anyhow::Result;
 use lapce_plugin::{
     psp_types::{
-        lsp_types::{request::Initialize, InitializeParams, Url},
+        lsp_types::{request::Initialize, DocumentFilter, DocumentSelector, InitializeParams, Url},
         Request,
     },
     register_plugin, LapcePlugin, VoltEnvironment, PLUGIN_RPC,
@@ -13,9 +13,15 @@ struct State {}
 
 register_plugin!(State);
 
-const LANGUAGE_ID: &str = "language_id";
-
 fn initialize(params: InitializeParams) -> Result<()> {
+    let document_selector: DocumentSelector = vec![DocumentFilter {
+        // lsp language id
+        language: Some(String::from("language_id")),
+        // glob pattern
+        pattern: Some(String::from("**/*.{ext1,ext2}")),
+        // like file:
+        scheme: None,
+    }];
     let mut server_args = vec![];
 
     // Check for user specified LSP server path
@@ -39,10 +45,11 @@ fn initialize(params: InitializeParams) -> Result<()> {
             if let Some(server_path) = lsp.get("serverPath") {
                 if let Some(server_path) = server_path.as_str() {
                     if !server_path.is_empty() {
+                        let server_uri = Url::parse(&format!("urn:{}", server_path))?;
                         PLUGIN_RPC.start_lsp(
-                            Url::parse(&format!("urn:{}", server_path))?,
+                            server_uri,
                             server_args,
-                            LANGUAGE_ID,
+                            document_selector,
                             params.initialization_options,
                         );
                         return Ok(());
@@ -83,12 +90,15 @@ fn initialize(params: InitializeParams) -> Result<()> {
     let volt_uri = VoltEnvironment::uri()?;
     let server_path = Url::parse(&volt_uri)?.join("[filename]")?;
 
+    // if you want to use server from PATH
+    // let server_path = Url::parse(&format!("urn:{filename}"))?;
+
     // Available language IDs
     // https://github.com/lapce/lapce/blob/HEAD/lapce-proxy/src/buffer.rs#L173
     PLUGIN_RPC.start_lsp(
         server_path,
         server_args,
-        LANGUAGE_ID,
+        document_selector,
         params.initialization_options,
     );
 
