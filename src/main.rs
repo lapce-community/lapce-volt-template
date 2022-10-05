@@ -114,7 +114,10 @@ impl LapcePlugin for State {
         match method.as_str() {
             Initialize::METHOD => {
                 let params: InitializeParams = serde_json::from_value(params).unwrap();
-                let _ = initialize(params);
+                match initialize(params) {
+                    Ok(_) => (),
+                    Err(e) => PLUGIN_RPC.stderr(&format!("plugin returned with error: {e}")),
+                }
             }
             _ => {}
         }
