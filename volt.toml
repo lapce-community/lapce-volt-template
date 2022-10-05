@@ -4,3 +4,7 @@ author = "<your name>"
 display-name = "<plugin-display-name>"
 description = "<plugin-description>"
 wasm = "bin/<plugin-name>.wasm"
+
+[activation]
+language = []
+workspace-contains = []
