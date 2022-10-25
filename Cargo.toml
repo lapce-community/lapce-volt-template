@@ -5,15 +5,23 @@ version = "0.0.0"
 resolver = "2"
 
 [target.'cfg(target_os = "wasi")'.dependencies]
+# plugin deps
+
+# for unpacking zip
+# zip = { version = "0.6", default-features = false, features = ["deflate"] }
+
+# for unpacking tar/gz
+# flate2 = { version = "1.0" }
 
 # default deps for all lapce plugins
 anyhow = "1.0"
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-# lapce-plugin = { git = "https://github.com/lapce/lapce-plugin-rust.git", branch = "volt" }
-lapce-plugin = { git = "https://github.com/panekj/lapce-plugin-rust.git", branch = "volt" }
+lapce-plugin = { git = "https://github.com/lapce/lapce-plugin-rust.git" }
+# lapce-plugin = { git = "https://github.com/panekj/lapce-plugin-rust.git", branch = "volt" }
 
 [profile.release]
 opt-level = 3
 lto = true
 codegen-units = 1
+strip = true
