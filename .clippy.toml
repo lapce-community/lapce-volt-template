@@ -1,0 +1,6 @@
+# disallowed-macros = [
+#     { path = "std::print", reason = "won't work in WASI" },
+#     { path = "std::println", reason = "won't work in WASI" },
+#     { path = "std::eprint", reason = "won't work in WASI" },
+#     { path = "std::eprintln", reason = "won't work in WASI" },
+# ]
