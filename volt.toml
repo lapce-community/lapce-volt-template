@@ -9,11 +9,11 @@ wasm = "bin/<plugin-name>.wasm"
 language = []
 workspace-contains = []
 
-[config."volt.serverPath"]
+[config."lsp.serverPath"]
 default = ""
 description = "Path to custom LSP executable"
 
-# [config."volt.serverArgs"]
+# [config."lsp.serverArgs"]
 # default = []
 # description = ""
 
