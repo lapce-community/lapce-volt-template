@@ -1,0 +1,4 @@
+[[configs]]
+name = "Plugin"
+program = "${lapce}"
+args = ["--plugin-path=${workspace}", "--wait", "--new"]
